@@ -42,8 +42,8 @@ that endpoint. The following data is recorded:
 
 - **Time_requested:** the timestamp of when the request is being made.
 
-- **Version_requested:** the version of the Flask-application at the moment when the request arrived.
-  This can either be retrieved via the `VERSION` value, or via the `GIT` value.
+- **Version_requested:** the version of the Flask application at the moment when the request arrived.
+  This can be retrieved either via the `VERSION` value or via the `GIT` value.
   If both are configured, the `GIT` value is used.
 
 - **group_by:** An option to group the collected results.
@@ -104,7 +104,7 @@ that endpoint. The following data is recorded:
   | dashboard.config.group_by = lambda: [('User', lambda: 3), ('Username', lambda: 'username')] | ((User,3),(Username,username)) |
   +---------------------------------------------------------------------------------------------+--------------------------------+
 
-- **IP:** The IP-address from which the request is made. The IP is retrieved by the following code:
+- **IP:** The IP address from which the request is made. The IP is retrieved by the following code:
 
 .. code-block:: python
 
@@ -122,16 +122,16 @@ If this is the case, a request is seen as an outlier.
 Mathematically, a request is considered an outlier if its execution is a certain number of times longer than the
 average duration for requests coming to the same endpoint:
 
-:math:`duration_outlier > duration_average * constant`
+:math:`duration_{outlier} > duration_{average} * constant`
 
-Where :math:`duration_average` is the average execution time per endpoint, and :math:`constant` is given in the configuration
+Where :math:`duration_{average}` is the average execution time per endpoint, and :math:`constant` is given in the configuration
 by OUTLIER_DETECTION_CONSTANT (its default value is :math:`2.5`).
 
 When a request is an outlier, the Dashboard stores more information about it, such as:
 
-- The stack-trace in which it got stuck.
+- The stack trace in which it got stuck.
 
-- The percentage of the CPU's that are in use.
+- The percentage of the CPUs that are in use.
 
 - The current amount of memory that is used.
 
@@ -141,7 +141,7 @@ When a request is an outlier, the Dashboard stores more information about it, su
 
 - Request environment.
 
-The data that is collected from outliers, can be seen by the following procedure:
+The data that is collected from outliers can be seen by the following procedure:
 
 1. Go to the Dashboard Overview: http://localhost:5000/measurements/overview
 
@@ -156,7 +156,7 @@ When the monitoring level is set to 3, the Dashboard performs a
 `statistical profiling <https://docs.python.org/3/library/profile.html#what-is-deterministic-profiling>`_
 of all the requests coming to that endpoint. What this means is that another
 thread will be launched in parallel with the one processing the request, it
-will periodically sample the processing thread, and will analyze its current stack
+will periodically sample the processing thread and will analyze its current stack
 trace. Using this information, the Dashboard will infer how long every function
 call inside the endpoint code takes to execute.
 
@@ -174,14 +174,14 @@ you have to:
 4. Go to the Grouped Profiler tab: http://localhost:5000/dashboard/endpoint/:endpoint_id:/grouped-profiler
 
 The Profiler tab shows all individual profiled requests of an endpoint
-in the form of a execution tree. Each code line is displayed along with
+in the form of an execution tree. Each code line is displayed along with
 its execution time and its share of the total execution time of the request.
 
-The Grouped Profiler tab shows the merged execution of up to 100 most recent
-profiled requests of an endpoint. This is displayed both as a table and as
-a Sunburst graph. The table shows for each code line information about
+The Grouped Profiler tab shows the merged execution of up to 100 of an endpoint's most recent
+profiled requests. This is displayed both as a table and as
+a Sunburst graph. The table shows information about
 the Hits (i.e. how many times it has been executed), average execution time
-and standard deviation, and also total execution time.
+and standard deviation, and also total execution time for each code line.
 
 
 
@@ -196,13 +196,13 @@ Application
 Visualizations showing aggregated data of all the endpoints (with monitoring level
 at least 1) in the application can be found under the **Dashboard** menu:
 
-1. **Overview:** A table with the all the endpoints that are being monitored (or have been monitored in the past).
-   This table provides information about when the endpoint was last requested, how often it is requested and what is
+1. **Overview:** A table with all the endpoints that are being monitored (or have been monitored in the past).
+   This table provides information about when the endpoint was last requested, how often it is requested, and
    the current monitoring level. Each endpoint can be clicked to access the
    Endpoint-specific visualizations.
 
-2. **Hourly API Utilization:** This graph provides information for each hour of the day of how often the endpoint is being requested. In
-   this graph it is possible to detect popular hours during the day.
+2. **Hourly API Utilization:** This graph provides information for each hour of the day on how often the endpoint is being requested. In
+   this graph, it is possible to detect popular hours during the day.
 
 3. **Multi Version API Utilization**: This graph provides information about the distribution of the utilization of the requests per version.
    That is, how often (in percentages) is a certain endpoint requested in a certain version.
@@ -211,7 +211,7 @@ at least 1) in the application can be found under the **Dashboard** menu:
    whether the total number of requests grows over days.
 
 5. **API Performance:** This graph provides a row of information per endpoint. In that row, you can find all the
-   requests for that endpoint. This provides information whether certain endpoints perform better (in terms of
+   requests for that endpoint. This provides information on whether certain endpoints perform better (in terms of
    execution time) than other endpoints.
 
 6. **Reporting:** A more experimental feature which aims to automatically
@@ -222,15 +222,15 @@ Endpoint
 ~~~~~~~~~~~~~~
 
 For each endpoint in the Overview page, you can click on the endpoint to get more details.
-This provides the following information (all information below is specific for a single endpoint):
+This provides the following information (all information below is specific to a single endpoint):
 
-1. **Hourly API Utilization:** The same hourly load as explained in (2) above, but this time it is focused on the data of that particular endpoint only.
+1. **Hourly API Utilization:** The same hourly load as explained in (2) above, but this time, it only focuses on the data of that particular endpoint.
 
 2. **User-Focused Multi-Version Performance:** A circle plot with the average execution time per user per version. Thus, this graph consists of 3 dimensions (execution time, users, versions). A larger circle represents a higher execution time.
 
 3. **IP-Focused Multi-Version Performance:** The same type of plot as 'User-Focused Multi-Version Performance', but now that users are replaced by IP-addresses.
 
-4. **Per-Version Performance:** A horizontal box plot with the execution times for a specific version. This graph is equivalent to (4.), but now it is focused on the data of that particular endpoint only.
+4. **Per-Version Performance:** A horizontal box plot with the execution times for a specific version. This graph is equivalent to (4.), but now it only focuses on the data of that particular endpoint.
 
 5. **Per-User Performance:** A horizontal box plot with the execution time per user. In this graph, it is possible to detect if there is a difference in the execution time between users.
 
@@ -271,9 +271,9 @@ every minute at the second 01 and the graph will appear in the **Custom graphs**
 
 
 Note the "cron" argument to the add graph.
-Just like in the case of the unix cron utility you can use
+Just like in the case of the Unix cron utility you can use
 more complex schedules. For example, if you want to collect
-the data every day at midnight you would use:
+the data every day at midnight, you would use:
 
   .. code-block:: python
 
